@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Class Questions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #251f1d;
+            background-color: #fbe305;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #251f1d;
+        }
+        .question-category {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #251f1d;
+        }
+        .question-box {
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            color: #251f1d;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #251f1d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #3a3433;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Random Class Questions</h1>
+
+    <div class="question-category" id="category1">Category 1</div>
+    <div id="question1" class="question-box">Click "Generate Questions" to start!</div>
+
+    <div class="question-category" id="category2">Category 2</div>
+    <div id="question2" class="question-box"></div>
+
+    <button onclick="generateQuestions()">Generate Questions</button>
+
+    <script>
+        // Define questions by category
+        const questions = {
+            understanding: [
+                "What are the main ideas we talked about today?",
+                "Can you tell me what this is all about in your own words?",
+                "How does this connect to what we learned before?",
+                "What’s one new thing you learned that you didn’t know before?"
+            ],
+            thinkingAndUsing: [
+                "How did you figure this out? What steps did you take?",
+                "Can you think of a way this could work in real life?",
+                "What do you think would happen if…?",
+                "Can you think of a way to use this idea outside of school?"
+            ],
+            reflecting: [
+                "What was tricky today, and how did you manage it?",
+                "What helps you remember this idea?",
+                "How would you explain this to a friend who missed it?",
+                "What’s something you feel really good about, and one thing you want more help with?"
+            ],
+            checkingGoals: [
+                "What’s one thing you feel really good about, and one thing you want more help with?",
+                "How has your thinking changed as we talked about this?",
+                "What would you ask about to understand this even better?",
+                "What advice would you give to someone who’s just starting to learn this?"
+            ],
+            curiosity: [
+                "What surprised you the most about what we learned today?",
+                "What’s something you still wonder about this topic?",
+                "If you could ask an expert one question about this, what would it be?",
+                "What was the coolest fact you heard today?"
+            ],
+            connectingIdeas: [
+                "How does this connect to other things we’re learning?",
+                "Do you see any links between this and other subjects or topics?",
+                "What other subject or topic does this remind you of, and why?",
+                "Can you find a connection between today’s lesson and something you already know?"
+            ]
+        };
+
+        // Categories and their display names with emojis
+        const categories = [
+            { key: 'understanding', name: '📚 Understanding What We’ve Learned' },
+            { key: 'thinkingAndUsing', name: '💡 Thinking and Using Ideas' },
+            { key: 'reflecting', name: '🪞 Reflecting on How You Learn' },
+            { key: 'checkingGoals', name: '✅ Checking In and Setting Goals' },
+            { key: 'curiosity', name: '🔍 Getting Curious' },
+            { key: 'connectingIdeas', name: '🔗 Bringing Ideas Together' }
+        ];
+
+        // Function to generate two random questions from different categories
+        function generateQuestions() {
+            // Select two different random categories
+            const selectedCategories = [];
+            while (selectedCategories.length < 2) {
+                const randomIndex = Math.floor(Math.random() * categories.length);
+                const selectedCategory = categories[randomIndex];
+                if (!selectedCategories.includes(selectedCategory)) {
+                    selectedCategories.push(selectedCategory);
+                }
+            }
+
+            // Get random questions from the selected categories
+            const question1 = randomQuestionFromCategory(selectedCategories[0].key);
+            const question2 = randomQuestionFromCategory(selectedCategories[1].key);
+
+            // Display categories and questions on the page
+            document.getElementById("category1").textContent = selectedCategories[0].name;
+            document.getElementById("question1").textContent = question1;
+            document.getElementById("category2").textContent = selectedCategories[1].name;
+            document.getElementById("question2").textContent = question2;
+        }
+
+        // Function to get a random question from a specific category
+        function randomQuestionFromCategory(categoryKey) {
+            const categoryQuestions = questions[categoryKey];
+            const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
+            return categoryQuestions[randomIndex];
+        }
+    </script>
+
+</body>
+</html>
