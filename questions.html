@@ -21,35 +21,36 @@
         h1 {
             color: #251f1d;
         }
-        .question-category {
-            font-size: 1.2em;
-            font-weight: bold;
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
             margin-top: 20px;
-            color: #251f1d;
+        }
+        .category-button {
+            padding: 15px 25px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #251f1d;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .category-button.active {
+            background-color: #3a3433;
         }
         .question-box {
             width: 80%;
             max-width: 600px;
             background-color: #fff;
             padding: 20px;
-            margin: 10px 0;
+            margin: 20px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             text-align: center;
             color: #251f1d;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            color: #fff;
-            background-color: #251f1d;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #3a3433;
         }
     </style>
 </head>
@@ -57,13 +58,16 @@
 
     <h1>Random Class Questions</h1>
 
-    <div class="question-category" id="category1">Category 1</div>
-    <div id="question1" class="question-box">Click "Generate Questions" to start!</div>
+    <div class="button-container">
+        <button class="category-button" onclick="showQuestion('understanding')">📚 Understanding</button>
+        <button class="category-button" onclick="showQuestion('thinkingAndUsing')">💡 Thinking and Using</button>
+        <button class="category-button" onclick="showQuestion('reflecting')">🪞 Reflecting</button>
+        <button class="category-button" onclick="showQuestion('checkingGoals')">✅ Checking Goals</button>
+        <button class="category-button" onclick="showQuestion('curiosity')">🔍 Curiosity</button>
+        <button class="category-button" onclick="showQuestion('connectingIdeas')">🔗 Connecting Ideas</button>
+    </div>
 
-    <div class="question-category" id="category2">Category 2</div>
-    <div id="question2" class="question-box"></div>
-
-    <button onclick="generateQuestions()">Generate Questions</button>
+    <div id="question" class="question-box">Click a category to see a question!</div>
 
     <script>
         // Define questions by category
@@ -106,44 +110,20 @@
             ]
         };
 
-        // Categories and their display names with emojis
-        const categories = [
-            { key: 'understanding', name: '📚 Understanding What We’ve Learned' },
-            { key: 'thinkingAndUsing', name: '💡 Thinking and Using Ideas' },
-            { key: 'reflecting', name: '🪞 Reflecting on How You Learn' },
-            { key: 'checkingGoals', name: '✅ Checking In and Setting Goals' },
-            { key: 'curiosity', name: '🔍 Getting Curious' },
-            { key: 'connectingIdeas', name: '🔗 Bringing Ideas Together' }
-        ];
-
-        // Function to generate two random questions from different categories
-        function generateQuestions() {
-            // Select two different random categories
-            const selectedCategories = [];
-            while (selectedCategories.length < 2) {
-                const randomIndex = Math.floor(Math.random() * categories.length);
-                const selectedCategory = categories[randomIndex];
-                if (!selectedCategories.includes(selectedCategory)) {
-                    selectedCategories.push(selectedCategory);
-                }
-            }
-
-            // Get random questions from the selected categories
-            const question1 = randomQuestionFromCategory(selectedCategories[0].key);
-            const question2 = randomQuestionFromCategory(selectedCategories[1].key);
-
-            // Display categories and questions on the page
-            document.getElementById("category1").textContent = selectedCategories[0].name;
-            document.getElementById("question1").textContent = question1;
-            document.getElementById("category2").textContent = selectedCategories[1].name;
-            document.getElementById("question2").textContent = question2;
-        }
-
-        // Function to get a random question from a specific category
-        function randomQuestionFromCategory(categoryKey) {
-            const categoryQuestions = questions[categoryKey];
+        // Function to display a question and highlight the active button
+        function showQuestion(category) {
+            // Get a random question from the selected category
+            const categoryQuestions = questions[category];
             const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-            return categoryQuestions[randomIndex];
+            const question = categoryQuestions[randomIndex];
+
+            // Update the question display
+            document.getElementById("question").textContent = question;
+
+            // Highlight the active button
+            const buttons = document.querySelectorAll(".category-button");
+            buttons.forEach(button => button.classList.remove("active"));
+            event.target.classList.add("active");
         }
     </script>
 
