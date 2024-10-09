@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Class Questions</title>
+    <title>Tell Me What You Think About...</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap');
 
@@ -20,6 +20,7 @@
         }
         h1 {
             color: #251f1d;
+            text-align: center;
         }
         .button-container {
             display: flex;
@@ -52,25 +53,26 @@
             text-align: center;
             color: #251f1d;
             font-size: 1.2em;
+            line-height: 1.5em;
         }
     </style>
 </head>
 <body>
 
-    <h1>Random Class Questions</h1>
+    <h1>Tell Me What You Think About...</h1>
 
     <!-- Category buttons -->
     <div class="button-container">
-        <button class="category-button" onclick="showQuestion('understanding', this)">📚 Understanding</button>
-        <button class="category-button" onclick="showQuestion('thinkingAndUsing', this)">💡 Thinking & Using</button>
-        <button class="category-button" onclick="showQuestion('reflecting', this)">🪞 Reflecting</button>
-        <button class="category-button" onclick="showQuestion('checkingGoals', this)">✅ Checking Goals</button>
-        <button class="category-button" onclick="showQuestion('curiosity', this)">🔍 Curiosity</button>
-        <button class="category-button" onclick="showQuestion('connectingIdeas', this)">🔗 Connecting Ideas</button>
+        <button class="category-button" onclick="showQuestions('understanding', this)">📚 Understanding</button>
+        <button class="category-button" onclick="showQuestions('thinkingAndUsing', this)">💡 Thinking & Using</button>
+        <button class="category-button" onclick="showQuestions('reflecting', this)">🪞 Reflecting</button>
+        <button class="category-button" onclick="showQuestions('checkingGoals', this)">✅ Checking Goals</button>
+        <button class="category-button" onclick="showQuestions('curiosity', this)">🔍 Curiosity</button>
+        <button class="category-button" onclick="showQuestions('connectingIdeas', this)">🔗 Connecting Ideas</button>
     </div>
 
-    <!-- Display area for selected question -->
-    <div id="questionDisplay" class="question-display">Select a category to see a question!</div>
+    <!-- Display area for selected questions -->
+    <div id="questionDisplay" class="question-display">Select a category to see questions!</div>
 
     <script>
         // Questions categorized by type
@@ -113,15 +115,22 @@
             ]
         };
 
-        // Function to display a question based on the selected category
-        function showQuestion(category, button) {
-            // Get a random question from the selected category
+        // Function to display two questions based on the selected category
+        function showQuestions(category, button) {
+            // Get two unique random questions from the selected category
             const categoryQuestions = questions[category];
-            const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
-            const question = categoryQuestions[randomIndex];
+            const randomIndexes = [];
+            while (randomIndexes.length < 2) {
+                const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
+                if (!randomIndexes.includes(randomIndex)) {
+                    randomIndexes.push(randomIndex);
+                }
+            }
+            const question1 = categoryQuestions[randomIndexes[0]];
+            const question2 = categoryQuestions[randomIndexes[1]];
 
-            // Update the question display
-            document.getElementById("questionDisplay").textContent = question;
+            // Display the questions
+            document.getElementById("questionDisplay").innerHTML = `<p>1. ${question1}</p><p>2. ${question2}</p>`;
 
             // Highlight the active button and remove highlight from others
             const buttons = document.querySelectorAll(".category-button");
