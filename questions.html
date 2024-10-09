@@ -42,12 +42,18 @@
         .category-button.active {
             background-color: #3a3433;
         }
-        .question-display {
+        .question-display-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .question-box {
             width: 80%;
-            max-width: 600px;
+            max-width: 500px;
             background-color: #fff;
             padding: 20px;
-            margin: 20px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             text-align: center;
@@ -72,7 +78,10 @@
     </div>
 
     <!-- Display area for selected questions -->
-    <div id="questionDisplay" class="question-display">Select a category to see questions!</div>
+    <div class="question-display-container">
+        <div id="question1" class="question-box">Select a category to see the first question!</div>
+        <div id="question2" class="question-box">Select a category to see the second question!</div>
+    </div>
 
     <script>
         // Questions categorized by type
@@ -129,8 +138,9 @@
             const question1 = categoryQuestions[randomIndexes[0]];
             const question2 = categoryQuestions[randomIndexes[1]];
 
-            // Display the questions with separate lines for each question
-            document.getElementById("questionDisplay").innerHTML = `<p><strong>1.</strong> ${question1}</p><p><strong>2.</strong> ${question2}</p>`;
+            // Display each question in its own box
+            document.getElementById("question1").textContent = question1;
+            document.getElementById("question2").textContent = question2;
 
             // Highlight the active button and remove highlight from others
             const buttons = document.querySelectorAll(".category-button");
