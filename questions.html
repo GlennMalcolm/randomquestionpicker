@@ -129,8 +129,8 @@
             const question1 = categoryQuestions[randomIndexes[0]];
             const question2 = categoryQuestions[randomIndexes[1]];
 
-            // Display the questions
-            document.getElementById("questionDisplay").innerHTML = `<p>1. ${question1}</p><p>2. ${question2}</p>`;
+            // Display the questions with separate lines for each question
+            document.getElementById("questionDisplay").innerHTML = `<p><strong>1.</strong> ${question1}</p><p><strong>2.</strong> ${question2}</p>`;
 
             // Highlight the active button and remove highlight from others
             const buttons = document.querySelectorAll(".category-button");
