@@ -41,7 +41,7 @@
         .category-button.active {
             background-color: #3a3433;
         }
-        .question-box {
+        .question-display {
             width: 80%;
             max-width: 600px;
             background-color: #fff;
@@ -51,6 +51,7 @@
             border-radius: 8px;
             text-align: center;
             color: #251f1d;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -58,19 +59,21 @@
 
     <h1>Random Class Questions</h1>
 
+    <!-- Category buttons -->
     <div class="button-container">
-        <button class="category-button" onclick="showQuestion('understanding')">📚 Understanding</button>
-        <button class="category-button" onclick="showQuestion('thinkingAndUsing')">💡 Thinking and Using</button>
-        <button class="category-button" onclick="showQuestion('reflecting')">🪞 Reflecting</button>
-        <button class="category-button" onclick="showQuestion('checkingGoals')">✅ Checking Goals</button>
-        <button class="category-button" onclick="showQuestion('curiosity')">🔍 Curiosity</button>
-        <button class="category-button" onclick="showQuestion('connectingIdeas')">🔗 Connecting Ideas</button>
+        <button class="category-button" onclick="showQuestion('understanding', this)">📚 Understanding</button>
+        <button class="category-button" onclick="showQuestion('thinkingAndUsing', this)">💡 Thinking & Using</button>
+        <button class="category-button" onclick="showQuestion('reflecting', this)">🪞 Reflecting</button>
+        <button class="category-button" onclick="showQuestion('checkingGoals', this)">✅ Checking Goals</button>
+        <button class="category-button" onclick="showQuestion('curiosity', this)">🔍 Curiosity</button>
+        <button class="category-button" onclick="showQuestion('connectingIdeas', this)">🔗 Connecting Ideas</button>
     </div>
 
-    <div id="question" class="question-box">Click a category to see a question!</div>
+    <!-- Display area for selected question -->
+    <div id="questionDisplay" class="question-display">Select a category to see a question!</div>
 
     <script>
-        // Define questions by category
+        // Questions categorized by type
         const questions = {
             understanding: [
                 "What are the main ideas we talked about today?",
@@ -110,20 +113,20 @@
             ]
         };
 
-        // Function to display a question and highlight the active button
-        function showQuestion(category) {
+        // Function to display a question based on the selected category
+        function showQuestion(category, button) {
             // Get a random question from the selected category
             const categoryQuestions = questions[category];
             const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
             const question = categoryQuestions[randomIndex];
 
             // Update the question display
-            document.getElementById("question").textContent = question;
+            document.getElementById("questionDisplay").textContent = question;
 
-            // Highlight the active button
+            // Highlight the active button and remove highlight from others
             const buttons = document.querySelectorAll(".category-button");
-            buttons.forEach(button => button.classList.remove("active"));
-            event.target.classList.add("active");
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
         }
     </script>
 
